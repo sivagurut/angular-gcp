@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "angular-gcp"
+    }
+  },
+  "defaultProject": "angular-gcp",
+  "cli": {
+    "analytics": false
+  }
 }
