@@ -1,6 +1,6 @@
 var express = require('express');
 var app = express();
-app.use(express.static('dist/angular-cloudrun'));
+app.use(express.static('dist/angular-gcp'));
 app.get('/', function (req, res,next) {
     res.redirect('/');
 });
