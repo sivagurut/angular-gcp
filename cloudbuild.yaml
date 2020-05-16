@@ -10,7 +10,8 @@ steps:
     args: [ push, gcr.io/$PROJECT_ID/angular-gcp]
   # Deploy container image to Cloud Run
   - name: 'gcr.io/cloud-builders/gcloud'
-    args: ['run', 'deploy', 'angular-gcp', '--image', 'gcr.io/$PROJECT_ID/angular-gcp', '--platform', 'managed', '--allow-unauthenticated']
+    args: ['run', 'deploy', 'angular-gcp', '--image', 'gcr.io/$PROJECT_ID/angular-gcp', '--region', 'us-central1', '--platform', 'managed', '--allow-unauthenticated']
+
 
 
 images:
