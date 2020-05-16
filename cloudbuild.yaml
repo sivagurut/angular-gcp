@@ -1,2 +1,2 @@
-gcloud builds submit --tag gcr.io/PROJECT-ID/SERVICE-NAME
+gcloud builds submit --tag gcr.io/PROJECT-ID/angular-gcp
 gcloud run deploy --image gcr.io/PROJECT-ID/PROJECT-NAME --platform managed
