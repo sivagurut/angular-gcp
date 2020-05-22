@@ -18,7 +18,7 @@ spec:
     spec:
       containers:
       - name: "app-angular-gcp-ui"
-        image: "gcr.io/$PROJECT_ID/app-angular-gcp-ui:latest"
+        image: "gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2"
         resources:
           limits:
             cpu: "100m"
