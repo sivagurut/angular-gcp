@@ -20,6 +20,6 @@ steps:
             --project elevated-server-275615 \
             --zone us-central1-c
         kubectl apply -f manifest.yaml --record
-		kubectl set image deployment app-angular-gcp-ui app-angular-gcp-ui=app-angular-gcp-ui:v2       
+        kubectl set image deployment app-angular-gcp-ui app-angular-gcp-ui=app-angular-gcp-ui:v2       
 images:
 - gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2
