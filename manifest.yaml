@@ -1,0 +1,61 @@
+---
+apiVersion: "apps/v1"
+kind: "Deployment"
+metadata:
+  name: "app-angular-gcp-ui"
+  namespace: "default"
+  labels:
+    app: "app-angular-gcp-ui"
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: "app-angular-gcp-ui"
+  template:
+    metadata:
+      labels:
+        app: "app-angular-gcp-ui"
+    spec:
+      containers:
+      - name: "app-angular-gcp-ui"
+        image: "gcr.io/$PROJECT_ID/app-angular-gcp-ui:latest"
+        resources:
+          limits:
+            cpu: "100m"
+            memory: "500Mi"
+        imagePullPolicy: Always
+---
+apiVersion: "v1"
+kind: "Service"
+metadata:
+  name: "app-angular-gcp-ui"
+  namespace: "default"
+  labels:
+    app: "app-angular-gcp-ui"
+spec:
+  ports:
+    - port: 80
+      targetPort: 3000
+  selector:
+    app: "app-angular-gcp-ui"
+  type: "LoadBalancer"
+---
+apiVersion: "autoscaling/v2beta1"
+kind: "HorizontalPodAutoscaler"
+metadata:
+  name: "app-angular-gcp-ui"
+  namespace: "default"
+  labels:
+    app: "app-angular-gcp-ui"
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: "app-angular-gcp-ui"
+    apiVersion: "apps/v1"
+  minReplicas: 1
+  maxReplicas: 1
+  metrics:
+  - type: "Resource"
+    resource:
+      name: "cpu"
+      targetAverageUtilization: 80
