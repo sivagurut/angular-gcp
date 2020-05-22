@@ -23,7 +23,7 @@ steps:
         
         sed -i 's|gcr.io/"$${PROJECT}"/app-angular-gcp-ui:.*|gcr.io/"$${PROJECT}"/app-angular-gcp-ui:v2|' ./manifest.yaml
         
-        
+        kubectl delete deployment app-angular-gcp-ui
         kubectl get ns default || kubectl create ns default
         kubectl apply --namespace default --recursive -f manifest.yaml
 images:
