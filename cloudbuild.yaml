@@ -18,7 +18,7 @@ steps:
         
         gcloud container clusters get-credentials demo-cluster  \
             --project elevated-server-275615 \
-            --zone us-central1     
+            --zone us-central1-c     
                 
         
         sed -i 's|gcr.io/"$${PROJECT}"/app-angular-gcp-ui:.*|gcr.io/"$${PROJECT}"/app-angular-gcp-ui|' ./manifest.yaml
