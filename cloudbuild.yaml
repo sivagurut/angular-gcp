@@ -17,5 +17,6 @@ steps:
             --project elevated-server-275615 \
             --zone us-central1-c     
         kubectl apply -f manifest.yaml --record
+		kubectl rollout undo deployment/app-angular-gcp-ui
 images:
 - gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2
