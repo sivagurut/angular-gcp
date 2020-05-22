@@ -3,7 +3,6 @@ steps:
   args: [ 'build','-t', 'gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2', . ]
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2']
-  
 - id: 'deploy'
   name: 'gcr.io/cloud-builders/gcloud'
   env:
@@ -12,13 +11,16 @@ steps:
   entrypoint: 'bash'
   args:
     - '-c'
-    - | 
+    - |
+       
         gcloud container clusters get-credentials demo-cluster  \
             --project elevated-server-275615 \
-            --zone us-central1-c
-        kubectl delete deployment app-angular-gcp-ui
-        kubectl delete service app-angular-gcp-ui
-        kubectl apply -f manifest.yaml --record
+            --zone us-central1-c     
+        		
+        sed -i 's|gcr.io/elevated-server-275615/app-angular-gcp-ui:.*|gcr.io/"$${PROJECT}"/app-angular-gcp-ui:v2|' ./manifest.yaml
         
+        
+        kubectl get ns default || kubectl create ns default
+        kubectl apply --namespace default --recursive -f manifest.yaml
 images:
 - gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2
