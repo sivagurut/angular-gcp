@@ -19,8 +19,8 @@ steps:
         gcloud container clusters get-credentials demo-cluster  \
             --project elevated-server-275615 \
             --zone us-central1-c
-		kubectl apply -f manifest.yaml			
-		kubectl run deploy app-angular-gcp-ui --image="gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2" --region="us-central1-c"
+        kubectl apply -f manifest.yaml
+        kubectl run deploy app-angular-gcp-ui --image="gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2" --region="us-central1-c"
         
 images:
 - gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2
