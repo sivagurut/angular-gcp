@@ -25,3 +25,5 @@ steps:
         
         
         kubectl apply -f manifest.yaml --record
+images:
+- gcr.io/$PROJECT_ID/app-angular-gcp-ui
