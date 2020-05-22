@@ -3,6 +3,7 @@ steps:
   args: [ 'build','-t', 'gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2', . ]
 - name: 'gcr.io/cloud-builders/docker'
   args: [ 'push', 'gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2']
+  
 - id: 'deploy'
   name: 'gcr.io/cloud-builders/gcloud'
   env:
@@ -11,15 +12,13 @@ steps:
   entrypoint: 'bash'
   args:
     - '-c'
-    - |
-        CLUSTER=$$(gcloud config get-value container/cluster)
-        PROJECT=$$(gcloud config get-value core/project)
-        ZONE=$$(gcloud config get-value compute/zone) 
-        
+    - | 
         gcloud container clusters get-credentials demo-cluster  \
             --project elevated-server-275615 \
             --zone us-central1-c
+        kubectl delete deployment app-angular-gcp-ui
+        kubectl delete service app-angular-gcp-ui
         kubectl apply -f manifest.yaml --record
-        kubectl set image deployment app-angular-gcp-ui app-angular-gcp-ui=app-angular-gcp-ui:v2       
+        
 images:
 - gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2
