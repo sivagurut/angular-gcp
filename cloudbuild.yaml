@@ -6,8 +6,7 @@ steps:
 - id: 'deploy'
   name: 'gcr.io/cloud-builders/gcloud'
   env:
-   - 'CLOUDSDK_COMPUTE_ZONE=${_CLOUDSDK_COMPUTE_ZONE}'
-   - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLOUDSDK_CONTAINER_CLUSTER}'
+   - 'CLOUDSDK_CONTAINER_CLUSTER=demo-cluster'
    - 'KUBECONFIG=/kube/config'
   entrypoint: 'bash'
   args:
@@ -17,7 +16,7 @@ steps:
         PROJECT=$$(gcloud config get-value core/project)
         ZONE=$$(gcloud config get-value compute/zone) 
         
-        gcloud container clusters get-credentials sandbox-gke  \
+        gcloud container clusters get-credentials demo-cluster  \
             --project elevated-server-275615 \
             --zone us-central1     
                 
