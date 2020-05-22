@@ -6,9 +6,23 @@ steps:
 - id: 'deploy'
   name: 'gcr.io/cloud-builders/gcloud'
   env:
-   - 'CLOUDSDK_CONTAINER_CLUSTER=demo-cluster'
+   - 'CLOUDSDK_COMPUTE_ZONE=${_CLOUDSDK_COMPUTE_ZONE}'
+   - 'CLOUDSDK_CONTAINER_CLUSTER=${_CLOUDSDK_CONTAINER_CLUSTER}'
    - 'KUBECONFIG=/kube/config'
   entrypoint: 'bash'
   args:
     - '-c'
-    - | kubectl apply -f manifest.yaml --record
+    - |
+        CLUSTER=$$(gcloud config get-value container/cluster)
+        PROJECT=$$(gcloud config get-value core/project)
+        ZONE=$$(gcloud config get-value compute/zone) 
+        
+        gcloud container clusters get-credentials sandbox-gke  \
+            --project elevated-server-275615 \
+            --zone us-central1     
+                
+        
+        sed -i 's|gcr.io/"$${PROJECT}"/app-angular-gcp-ui:.*|gcr.io/"$${PROJECT}"/app-angular-gcp-ui|' ./manifest.yaml
+        
+        
+        kubectl apply -f manifest.yaml --record
