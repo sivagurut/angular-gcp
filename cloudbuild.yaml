@@ -12,19 +12,12 @@ steps:
   args:
     - '-c'
     - |
-        CLUSTER=$$(gcloud config get-value container/cluster)
-        PROJECT=$$(gcloud config get-value core/project)
-        ZONE=$$(gcloud config get-value compute/zone) 
-        
+       
         gcloud container clusters get-credentials demo-cluster  \
             --project elevated-server-275615 \
             --zone us-central1-c     
-                
         
-        sed -i 's|gcr.io/"$${PROJECT}"/app-angular-gcp-ui:.*|gcr.io/"$${PROJECT}"/app-angular-gcp-ui:v2|' ./manifest.yaml
-        
-        kubectl delete deployment app-angular-gcp-ui
-        kubectl get ns default || kubectl create ns default
-        kubectl apply --namespace default --recursive -f manifest.yaml
+		kubectl apply -f manifest.yaml --record        
+		
 images:
 - gcr.io/$PROJECT_ID/app-angular-gcp-ui:v2
