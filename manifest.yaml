@@ -7,7 +7,7 @@ metadata:
   labels:
     app: "app-angular-gcp-ui"
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: "app-angular-gcp-ui"
@@ -18,12 +18,12 @@ spec:
     spec:
       containers:
       - name: "app-angular-gcp-ui"
-        image: "gcr.io/elevated-server-275615/app-angular-gcp-ui:v3"
+        image: "gcr.io/$PROJECT_ID/app-angular-gcp-ui:v4"
         resources:
           limits:
             cpu: "100m"
             memory: "500Mi"
-        imagePullPolicy: IfNotPresent
+        imagePullPolicy: Always
 ---
 apiVersion: "v1"
 kind: "Service"
