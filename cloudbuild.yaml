@@ -17,7 +17,7 @@ steps:
             --project elevated-server-275615 \
             --zone us-central1-c     
         		
-        sed -i 's|gcr.io/elevated-server-275615/app-angular-gcp-ui:.*|gcr.io/"${PROJECT_ID}"/app-angular-gcp-ui:v5|' ./manifest.yaml
+        sed -i 's|gcr.io/elevated-server-275615/app-angular-gcp-ui:.*|gcr.io/elevated-server-275615/app-angular-gcp-ui:v5|' ./manifest.yaml
         
         
         kubectl get ns default || kubectl create ns default
