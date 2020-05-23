@@ -6,7 +6,7 @@ steps:
 - id: 'deploy'
   name: 'gcr.io/cloud-builders/gcloud'
   env:
-   - 'CLOUDSDK_CONTAINER_CLUSTER=demo-cluster'
+   - 'CLOUDSDK_CONTAINER_CLUSTER=cluster-demo'
    - 'KUBECONFIG=/kube/config'
   entrypoint: 'bash'
   args:
